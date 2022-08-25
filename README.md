@@ -17,6 +17,6 @@
 
 ### Migrations
 
-- `$ python manage.py db init` command
-- `$ python manage.py db migrate` command
-- `$ python manage.py db upgrade` command
+- `$ python manage.py db init` 
+- `$ python manage.py db migrate` 
+- `$ python manage.py db upgrade` 

@@ -40,11 +40,9 @@ def create():
 def login():
   req_data = request.get_json()
 
-  data, error = user_schema.load(req_data, partial=True)
+  data = user_schema.load(req_data, partial=True)
 
-  if error:
-    return custom_response(error, 400)
-  
+ 
   if not data.get('email') or not data.get('password'):
     return custom_response({'error': 'you need email and password to sign in'}, 400)
   
@@ -56,7 +54,7 @@ def login():
   if not user.check_hash(data.get('password')):
     return custom_response({'error': 'invalid credentials'}, 400)
   
-  ser_data = user_schema.dump(user).data
+  ser_data = user_schema.dump(user)
   
   token = Auth.generate_token(ser_data.get('id'))
 

@@ -5,6 +5,7 @@ import datetime
 from flask import json,Response,request,g
 from ..models.UserModel import UserModel
 from dotenv import load_dotenv
+from functools import wraps
 load_dotenv()
 
 
@@ -27,7 +28,7 @@ class Auth():
         payload,
         os.environ.get('JWT_SECRET_KEY'),
         'HS256'
-      ).decode("utf-8")
+      )
     except Exception as e:
       return Response(
         mimetype="application/json",

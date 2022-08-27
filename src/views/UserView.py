@@ -1,9 +1,12 @@
 #/src/views/UserView
 
-from flask import request, json, Response, Blueprint,g
+from flask import request, json, Response, Blueprint,g,Flask,jsonify
 from ..models.UserModel import UserModel, UserSchema
 from ..shared.Authentication import Auth
+from marshmallow import ValidationError
 
+
+app = Flask(__name__)
 user_api = Blueprint('users', __name__)
 user_schema = UserSchema()
 
@@ -13,11 +16,9 @@ def create():
   Create User Function
   """
   req_data = request.get_json()
-  data, error = user_schema.load(req_data)
+  data = user_schema.load(req_data)
 
-  if error:
-    return custom_response(error, 400)
-  
+
   # check if user already exist in the db
   user_in_db = UserModel.get_user_by_email(data.get('email'))
   if user_in_db:
@@ -27,9 +28,10 @@ def create():
   user = UserModel(data)
   user.save()
 
-  ser_data = user_schema.dump(user).data
+  ser_data = user_schema.dump(user)
 
   token = Auth.generate_token(ser_data.get('id'))
+  #return token
 
   return custom_response({'jwt_token': token}, 201)
 

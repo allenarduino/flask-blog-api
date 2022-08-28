@@ -29,6 +29,14 @@ def create():
   data = blogpost_schema.dump(post)
   return custom_response(data, 201)
 
+@blogpost_api.route('/', methods=['GET'])
+def get_all():
+  """
+  Get All Blogposts
+  """
+  posts = BlogpostModel.get_all_blogposts()
+  data = blogpost_schema.dump(posts, many=True)
+  return custom_response(data, 200)
 
 def custom_response(res, status_code):
   """
@@ -39,3 +47,4 @@ def custom_response(res, status_code):
     response=json.dumps(res),
     status=status_code
   )
+

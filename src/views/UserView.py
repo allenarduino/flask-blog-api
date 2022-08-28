@@ -20,7 +20,7 @@ def create():
   # try catch block 
   try:
     data = user_schema.load(req_data)
-    #handle marshmallow validation errors
+  #handle marshmallow validation errors
   except ValidationError as err:
     return custom_response(err.messages, 400)
 
@@ -49,7 +49,7 @@ def login():
  # try catch block 
   try:
     data = user_schema.load(req_data,partial=True)
-    #handle marshmallow validation errors
+  #handle marshmallow validation errors
   except ValidationError as err:
     return custom_response(err.messages, 400)
   
@@ -102,7 +102,7 @@ def update():
   # try catch block 
   try:
     data = user_schema.load(req_data,partial=True)
-    #handle marshmallow validation errors
+  #handle marshmallow validation errors
   except ValidationError as err:
     return custom_response(err.messages, 400)
 

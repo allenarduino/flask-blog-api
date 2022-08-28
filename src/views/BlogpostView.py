@@ -38,6 +38,21 @@ def get_all():
   data = blogpost_schema.dump(posts, many=True)
   return custom_response(data, 200)
 
+
+
+@blogpost_api.route('/<int:blogpost_id>', methods=['GET'])
+def get_one(blogpost_id):
+  """
+  Get A Blogpost
+  """
+  post = BlogpostModel.get_one_blogpost(blogpost_id)
+  if not post:
+    return custom_response({'error': 'post not found'}, 404)
+  data = blogpost_schema.dump(post)
+  return custom_response(data, 200)
+
+
+
 def custom_response(res, status_code):
   """
   Custom Response Function

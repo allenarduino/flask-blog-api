@@ -38,11 +38,16 @@ class UserModel(db.Model):
 
 
  
-    def update(self, data):
-        for key, item in data.items():
-           if key == 'password': 
-            self.password = self.__generate_hash(value) 
-            setattr(self, key, item)
+  ''' def update(self, data):
+    for key, item in data.items():
+      setattr(self, key, item)
+    self.modified_at = datetime.datetime.utcnow()
+    db.session.commit()
+  
+  '''
+  def update(self, data):
+    for key, item in data.items():
+      setattr(self, key, item)
     self.modified_at = datetime.datetime.utcnow()
     db.session.commit()
 

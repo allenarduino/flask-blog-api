@@ -92,7 +92,24 @@ def get_a_user(user_id):
   ser_user = user_schema.dump(user)
   return custom_response(ser_user, 200)
 
+@user_api.route('/me', methods=['PUT'])
+@Auth.auth_required
+def update():
+  """
+  Update me
+  """
+  req_data = request.get_json()
+  # try catch block 
+  try:
+    data = user_schema.load(req_data,partial=True)
+    #handle marshmallow validation errors
+  except ValidationError as err:
+    return custom_response(err.messages, 400)
 
+  user = UserModel.get_one_user(g.user.get('id'))
+  user.update(data)
+  ser_user = user_schema.dump(user)
+  return custom_response(ser_user, 200)
   
 
 def custom_response(res, status_code):

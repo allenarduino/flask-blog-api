@@ -15,8 +15,14 @@ def create():
   """
   Create User Function
   """
+  
   req_data = request.get_json()
-  data = user_schema.load(req_data)
+  # try catch block 
+  try:
+    data = user_schema.load(req_data)
+    #handle marshmallow validation errors
+  except ValidationError as err:
+    return custom_response(err.messages, 400)
 
 
   # check if user already exist in the db
@@ -40,9 +46,14 @@ def create():
 def login():
   req_data = request.get_json()
 
-  data = user_schema.load(req_data, partial=True)
+ # try catch block 
+  try:
+    data = user_schema.load(req_data,partial=True)
+    #handle marshmallow validation errors
+  except ValidationError as err:
+    return custom_response(err.messages, 400)
+  
 
- 
   if not data.get('email') or not data.get('password'):
     return custom_response({'error': 'you need email and password to sign in'}, 400)
   

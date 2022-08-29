@@ -20,3 +20,25 @@
 - `$ python manage.py db init` 
 - `$ python manage.py db migrate` 
 - `$ python manage.py db upgrade` 
+
+### Endpoints
+
+- #### User endpoints
+
+- Create User - POST `api/v1/users`
+- Login User - POST `api/v1/users/login`
+- Get A User Info - GET `api/v1/users/<int:user_id>`
+- Get All users - GET `api/v1/users`
+- Get My Info - GET `api/v1/users/me`
+- Edit My Info - PUT `api/v1/users/me`
+- DELETE My Account - DELETE `api/v1/users/me`
+
+- #### Blogposts endpoints
+
+- Create a Blogpost - POST `api/v1/blogposts`
+- Get All Blogposts - GET `api/v1/blogposts`
+- Get A Blogposts - GET `api/v1/blogposts/<int:blogpost_id>`
+- Update A Blogpost - PUT `api/v1/blogposts/<int:blogpost_id>`
+- Delete A Blogpost - DELETE `api/v1/blogposts/<int:blogpost_id>`
+
+
